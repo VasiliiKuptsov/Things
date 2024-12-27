@@ -5,6 +5,7 @@ from django.http import HttpResponse
 def home(request):
     return render(request, 'catalog/home.html')
 
+
 def contacts(request):
     if request.method == 'POST':
         # Получение данных из формы
