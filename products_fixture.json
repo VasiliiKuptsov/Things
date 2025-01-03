@@ -1,0 +1,34 @@
+[
+{
+    "model": "products.category",
+    "pk": 1,
+    "fields": {
+        "name": "Овощи",
+        "description": "Продукты с полей"
+    }
+},
+{
+    "model": "products.category",
+    "pk": 2,
+    "fields": {
+        "name": "Фрукты",
+        "description": ""
+    }
+},
+{
+    "model": "products.category",
+    "pk": 3,
+    "fields": {
+        "name": "мясо",
+        "description": "из животных"
+    }
+},
+{
+    "model": "products.category",
+    "pk": 4,
+    "fields": {
+        "name": "молочка",
+        "description": "продукты из молока"
+    }
+}
+]
