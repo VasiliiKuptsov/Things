@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
 {% load my_tags %}
 {% block content %}
-<div class="album py-5 bg-body-tertiary">
-    <div class="container">
+
+<div class="col-12">
+    <div class="text-center container">
 
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
         <div class="col">
-          <div class="card shadow-sm">
-            <img src="{{ product.photo | media_filter }}">
+          <div class="card shadow-sm" style="height: 24rem;">
+            <img src="{{ product.image | media_filter }}" class="card-img-top col-5" alt="Card image cap" >
             <div class="card-body">
               <p class="card-text">Продукт: {{product.name}}</p>
               <p class="card-text">Категория: {{product.category}}</p>
@@ -28,5 +29,5 @@
 
       </div>
     </div>
-  </div>
+</div>
 {% endblock %}
