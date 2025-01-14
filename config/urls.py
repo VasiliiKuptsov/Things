@@ -1,14 +1,15 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
-#from catalog import views
-
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("products.urls", namespace="products")),
-    # path('products/', views.contacts, name='contact'),
-    # Путь напрямую с главной страницы home
-    # т.к. предложенные нам страницы home и contacts одинаковые
-    # path('catalog/', include('catalog.urls', namespace='catalog'))
-]
+
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
