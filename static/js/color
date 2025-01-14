@@ -1,0 +1,8 @@
+
+
+
+
+
+ <head><script src="{% static 'js/color-modes.js' %}"></script>
+ <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
