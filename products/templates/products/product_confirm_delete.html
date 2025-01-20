@@ -1,0 +1,25 @@
+{% extends 'products/base.html' %}
+{% block content %}
+{% load my_tags %}
+<div class="container">
+        <div class="row">
+            <div class="col">
+                    <form class='row' method="post" enctype="multipart/form-data">
+                        <div class="card">
+                             <p class='card-text'>Действительно хотите удалить {{ object.name }}</p>
+                           <div class="card-body">
+
+                              {% csrf_token %}
+
+                           </div>
+                         </div>
+                         <button type="submit" class="btn btn-primary">
+                            удалить
+                        </button>
+                        <a class="btn btn-primary" href="{% url 'products:products_list' %}" role="button">отменить</a>
+                    </form>
+
+            </div>
+        </div>
+</div>
+{% endblock %}

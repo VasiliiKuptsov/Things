@@ -62,6 +62,13 @@ class Product(models.Model):
         help_text="введите последнего изменения продукта",
     )
 
+    views_counter = models.PositiveIntegerField(
+        verbose_name='Счетчик просмотров',
+        help_text='Укахите количество просмотров',
+        default=0
+
+    )
+
     def __str__(self):
         return f"{self.name}({self.category}){self.price}"
 
