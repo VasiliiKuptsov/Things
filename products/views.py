@@ -16,6 +16,14 @@ class ProductDetailView(DetailView):
         self.object.save()
         return self.object
 
+    #def get_context_data(self, **kwargs):
+     #   context = super().get_context_data(**kwargs)
+      #  post = self.get_object()
+       # post.views_count += 1
+        #post.save()
+       # context['title'] = post.title
+        #return context
+
 
 class ProductCreateView(CreateView):
     model = Product
@@ -36,16 +44,7 @@ class ProductDeleteView(DeleteView):
     model = Product
     success_url = reverse_lazy('products:products_list')
 
-#def products_list(request):
-#    products = Product.objects.all()
- #   context = {'products<object_list>': products}
-#    return render(request, 'products_list.html', context)
 
-
-#def products_detail(request, pk):
- #   product = get_object_or_404(Product, pk=pk)
-  #  context = {'product': product}
-   # return render(request, 'product_detail.html', context)
 
 
 
