@@ -7,9 +7,9 @@ load_dotenv(override=True)
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-SECRET_KEY = os.getenv(
-    "SECRET_KEY"
-)
+SECRET_KEY = 'django-insecure-b2*5qs@ir!uqe64@f*jiy*bcxafc57bc+(+duw)tfc+%*8vo%o' #os.getenv(
+  #  "SECRET_KEY"
+#)
 
 
 DEBUG = True if os.getenv("DEBUG") == "True" else False
@@ -67,11 +67,11 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": os.getenv("NAME"),
-        "USER": os.getenv("USER"),
-        "PASSWORD": os.getenv("PASSWORD"),
-        "HOST": os.getenv("HOST"),
-        "PORT": os.getenv("PORT"),
+        "NAME": 'catalog', #os.getenv("NAME"),
+        "USER": 'postgres', #os.getenv("USER"),
+        "PASSWORD": '1705', # os.getenv("PASSWORD"),
+        "HOST": 'localhost', #os.getenv("HOST"),
+        "PORT": '5432', #os.getenv("PORT"),
     }
 }
 
