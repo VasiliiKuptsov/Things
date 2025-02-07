@@ -68,7 +68,7 @@ class Product(models.Model):
         default=0
 
     )
-
+    publication = models.BooleanField(default=True, verbose_name='Опубликовано')
     def __str__(self):
         return f"{self.name}({self.category}){self.price}"
 
