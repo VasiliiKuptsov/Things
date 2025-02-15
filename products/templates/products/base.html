@@ -174,11 +174,13 @@
       <div class="col-lg-6 col-md-8 mx-auto">
         <h1 class="fw-light">Продукты и Статьи</h1>
 
+        {% if user.is_authenticated %}
         <p>
-
           <a class="btn btn-primary" href="{% url 'products:products_create' %}" role="button">Внести продукт</a>
+
           <a class="btn btn-primary" href="{% url 'materials:create' %}" role="button">Внести статью</a>
         </p>
+        {% endif %}
       </div>
     </div>
   </section>

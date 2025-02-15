@@ -3,7 +3,7 @@ from products.models import Product
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from products.forms import ProductForm
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 class ProductListView(ListView):
     model = Product
 
@@ -20,11 +20,20 @@ class ProductDetailView(DetailView):
 
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(CreateView, LoginRequiredMixin):
     model = Product
     form_class = ProductForm
     template_name = 'products/product_form.html'
     success_url = reverse_lazy('products:products_list')
+
+    def form_valid(self, form):
+        product=form.save()
+        user=self.request.user
+        product.owner=user
+        product.save()
+        return super().form_valid(form)
+
+
 
 
 class  ProductUpdateView(UpdateView):

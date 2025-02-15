@@ -1,3 +1,5 @@
+
+
 from django.urls import path
 from products.apps import ProductsConfig
 from products.views import ProductListView, ProductDetailView, ProductCreateView, ProductUpdateView, ProductDeleteView
@@ -14,4 +16,15 @@ urlpatterns = [
     path('products/<int:pk>/delete/', ProductDeleteView.as_view(), name='products_delete')
 
 ]
+
+
+
+
+
+
+
+
+
+
+
 

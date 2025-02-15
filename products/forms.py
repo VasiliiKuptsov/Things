@@ -10,21 +10,11 @@ class StyleFormMixin:
                 field.widget.attrs['class'] = 'form-check-input'
             field.widget.attrs['class'] = 'form-control'
 
-        #for field_name, field in self.fields.items():
-         #   print(field_name)
-         #   field.widget.attrs['class'] = 'form-control'
-
-        #self.fields['publication'].widget.attrs.update({
-        #    'class': 'form-check'
-        #})
-        #publication = self.fields['publication'].widget.attrs.update({
-         #   'class': 'form-check'
-        #})
 
 class ProductForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Product
-        exclude = ('views_counter',)
+        exclude = ('views_counter', 'owner')
         context_object_name = 'products'
 
 
