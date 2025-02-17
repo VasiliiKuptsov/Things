@@ -1,6 +1,5 @@
 from django.db import models
-
-
+from users.models import User
 class Category(models.Model):
 
     name = models.CharField(
@@ -66,9 +65,17 @@ class Product(models.Model):
         verbose_name='Счетчик просмотров',
         help_text='Укахите количество просмотров',
         default=0
-
     )
-    publication = models.BooleanField(default=True, verbose_name='Опубликовано')
+    owner = models.ForeignKey(
+        User,
+        verbose_name='Купец',
+        help_text='Укажите продавца товараэ',
+        blank=True, null=True,
+        on_delete=models.SET_NULL
+    )
+
+
+    #publication = models.BooleanField(default=True, verbose_name='Опубликовано')
     def __str__(self):
         return f"{self.name}({self.category}){self.price}"
 

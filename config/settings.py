@@ -27,7 +27,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "products",
-    "materials"
+    "materials",
+    "users"
 ]
 
 MIDDLEWARE = [
@@ -103,7 +104,9 @@ USE_I18N = True
 
 USE_TZ = True
 
-
+AUTH_USER_MODEL = 'users.User'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 
 STATIC_URL = "static/"
@@ -119,3 +122,21 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+MAIL_HOST = 'smtp.yandex.ru' # os.getenv('EMAIL_HOST')
+EMAIL_PORT = 465
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = "kuptsovvasilii@yandex.ru" #os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = 'woqcneacectqxnqs'
+
+SERVER_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+'''
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 2525
+EMAIL_HOST_USER = "proba1.21@mail.ru"
+EMAIL_HOST_PASSWORD = "eJEiFkz1QhXQewgLtheN"
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+'''

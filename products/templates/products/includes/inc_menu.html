@@ -9,8 +9,16 @@
           <ul class="list-unstyled">
             <li><a href="{% url 'products:products_list' %}" class="text-bg-dark">ПРОДУКТЫ</a></li>
              <li><a href="{% url 'materials:materials' %}" class="text-bg-dark">СТАТЬИ</a></li>
-             <li><a href="#" class="text-bg-dark">Вход</a></li>
-             <li><a href="#" class="text-bg-dark">Регистрация</a></li>
+              {% if user.is_authenticated%}
+
+                <li><a href="{% url 'users:logout' %}" class="text-white">Выйти</a></li>
+                {% else %}
+                  <li><a href="{% url 'users:login' %}" class="text-white">Вoйти</a></li>
+                  <li><a href="{% url 'users:register' %}" class="text-white">Регистрация</a></li>
+                {% endif %}
+
+
+
           </ul>
         </div>
       </div>
