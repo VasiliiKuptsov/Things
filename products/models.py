@@ -75,7 +75,7 @@ class Product(models.Model):
     )
 
 
-    #publication = models.BooleanField(default=True, verbose_name='Опубликовано')
+    publication = models.BooleanField(default=False, verbose_name='Опубликовано')
     def __str__(self):
         return f"{self.name}({self.category}){self.price}"
 
@@ -86,7 +86,11 @@ class Product(models.Model):
         ordering = [
             "name",
         ]
-        db_table = "custom_table_name"
+        permissions =[
+            ('can_edit_product', "Can edit product")
+            ('can_delete_product', "can delete product")
+        ]
+
 
 
 
