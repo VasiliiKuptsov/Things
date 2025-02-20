@@ -17,7 +17,11 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
         exclude = ('views_counter', 'owner')
         context_object_name = 'products'
 
-
+class ProductModeratorForm(StyleFormMixin, forms.ModelForm):
+    class Meta:
+            model = Product
+            fields = ('publication', 'publication')
+           # exclude = ('image', 'category', 'price', 'updated_at', 'views_counter', 'owner')
 
     def clean_name(self):
         stop_list = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']

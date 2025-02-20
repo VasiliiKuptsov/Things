@@ -22,6 +22,8 @@ class Category(models.Model):
         verbose_name = "Категория"
         verbose_name_plural = "Категории"
 
+
+
 class Product(models.Model):
 
     name = models.CharField(
@@ -29,8 +31,9 @@ class Product(models.Model):
         verbose_name="наименование",
         help_text="введите название продукта",
     )
+
     description = models.TextField(
-        blank=True, null=True, verbose_name="описание", help_text="опищите продукт"
+        blank=True, null=True, verbose_name="описание", help_text="опищите продукт",
     )
     image = models.ImageField(
         upload_to="products/photo",
@@ -48,12 +51,14 @@ class Product(models.Model):
         null=True,
         related_name='products',
     )
+
     price = models.IntegerField(
         blank=True,
         null=True,
         verbose_name="цена за покупку",
         help_text="укахите цену продукта",
     )
+
     updated_at = models.DateField(
         blank=True,
         null=True,
@@ -64,18 +69,23 @@ class Product(models.Model):
     views_counter = models.PositiveIntegerField(
         verbose_name='Счетчик просмотров',
         help_text='Укахите количество просмотров',
-        default=0
+        default=0,
     )
+    
     owner = models.ForeignKey(
         User,
         verbose_name='Купец',
         help_text='Укажите продавца товараэ',
         blank=True, null=True,
-        on_delete=models.SET_NULL
+        on_delete=models.SET_NULL,
     )
 
 
-    publication = models.BooleanField(default=False, verbose_name='Опубликовано')
+    publication = models.BooleanField(
+        default=False, 
+        verbose_name='Опубликовано',
+    )
+    
     def __str__(self):
         return f"{self.name}({self.category}){self.price}"
 
@@ -83,17 +93,12 @@ class Product(models.Model):
 
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
-        ordering = [
-            "name",
-        ]
+        ordering = ["name"]
+        db_table = "custom_table_name"
+        managed=True
         permissions =[
-            ('can_edit_product', "Can edit product")
-            ('can_delete_product', "can delete product")
+            ("can_publication_product", "Can publication product"),
+            ("can_delete_product", "Can delete product"),
         ]
 
 
-
-
-
-# наименование,описание,изображение,
-# категория,цена за покупку,дата создания,дата последнего изменения.
