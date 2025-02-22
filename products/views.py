@@ -2,9 +2,13 @@ from django.shortcuts import render, get_object_or_404
 from products.models import Product
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
+from products.services import get_products_from_cache
 
 class ProductListView(ListView):
     model = Product
+
+    def get_quaryset(self):
+        return get_products_from_cache()
 
 
 class ProductDetailView(DetailView):
