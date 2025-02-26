@@ -7,7 +7,9 @@
         <div class="col-sm-4 offset-md-1 py-4">
           <h4>Меню</h4>
           <ul class="list-unstyled">
+            <li><a href="{% url 'products:products_search' %}" class="text-bg-dark">КАТЕГОРИИ</a></li>
             <li><a href="{% url 'products:products_list' %}" class="text-bg-dark">ПРОДУКТЫ</a></li>
+
              <li><a href="{% url 'materials:materials' %}" class="text-bg-dark">СТАТЬИ</a></li>
               {% if user.is_authenticated%}
 
@@ -35,3 +37,4 @@
       </button>
     </div>
   </div>
+

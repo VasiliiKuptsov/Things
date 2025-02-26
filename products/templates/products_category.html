@@ -1,0 +1,8 @@
+{% extends 'products/base.html' %}
+{% block title %}Продукты из определенной категории{% endblock %}
+{% block content %}
+{% for product in products %}
+{{ product.name }}
+{{ product.description }}
+{% endfor %}
+{% endblock %}

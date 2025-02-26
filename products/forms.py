@@ -1,5 +1,5 @@
 from django import forms
-from products.models import Product
+from products.models import Product, Category
 
 
 class StyleFormMixin:
@@ -56,3 +56,14 @@ class ProductModeratorForm(StyleFormMixin, forms.ModelForm):
         if price < 0:
             raise forms.ValidationError('Отрицательная цена недопустима!')
         return price
+
+class ProductsSearchForm(forms.Form):
+    category = forms.ChoiceField()
+
+    class Meta:
+        model = Product
+        fields = ['category']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['category'].choices = [(category.id, category.name) for category in Category.objects.all()]

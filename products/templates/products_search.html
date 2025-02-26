@@ -1,0 +1,22 @@
+{% extends 'products/base.html' %}
+{% block title %}Продукты из определенной категории{% endblock %}
+{% block content %}
+<div class="container d-flex justify-content-center">
+    <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Поиск продуктов по категориям</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{% url 'products:products_category'  %}" enctype="multipart/form-data" class="form-floating">
+                <p><input name="category"></p>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Отправить</button>
+                    <h4 class="fw-light"> категории {{category}} .</h4>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

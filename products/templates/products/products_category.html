@@ -1,0 +1,39 @@
+{% extends 'products/base.html' %}
+{% block content %}
+{% load my_tags %}
+<div class="text-center container">
+    <h2 class="fw-light">Продукты категории {{category_id}} .</h2>
+  <div class="album py-5 bg-body-tertiary">
+    <div class="container">
+
+      <div class="row">
+        {% for product in products %}
+        <div class="col-md-4">
+          <div class="card mb-4 box-shadow" style="height: 24rem;" >
+           <img class='carg-img-top'
+                src="{{product.image}}" class="card-img-top col-5" alt="Card image cap">
+            <div class="card-body">
+              <p class="card-text">{{product.name|truncatechars:100}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                {% if user.is_authenticated %}
+                <div class="btn-group">
+                   <a class = "btn btn-primary" href="{% url 'products:products_detail' product.pk %}" role = 'button'>Посмотреть</a>
+                    {% if perms.products.can_publication_product or user == product.owner %}
+                        <a class = "btn btn-primary" href="{% url 'products:products_update' product.pk %}" role = 'button'>Редактировать</a>
+                    {% endif %}
+                    {% if perms.products.can_delete_product or user == product.owner %}
+                       <a class = "btn btn-primary" href="{% url 'products:products_delete' product.pk %}" role = 'button'>Удалить</a>
+                    {% endif %}
+                </div>
+                 {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
