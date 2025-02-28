@@ -80,59 +80,76 @@ class ProductDeleteView(DeleteView):
     success_url = reverse_lazy('products:products_list')
 
 
-
-class ProductCategoryListView(ListView):
-    model = Product
-    template_name = 'products/products_category.html'
-    context_object_name = 'products'
-
-    def get_queryset(self):
-        category_id = self.kwargs.get('category_id')
-        print(category_id)
-        if category_id:
-        #cat_products = get_product_from_category(category_id)
-            return get_product_from_category(category_id=category_id)
-        else:
-            return Product.objects.none()
-
-    def get(self, request, *args, **kwargs):
-        form = ProductsSearchForm()
-        return render(request, self.template_name, {'form': form, 'products': self.get_queryset()})
-
-    def post(self, request, *args, **kwargs):
-        form = ProductsSearchForm(request.POST)
-        if form.is_valid():
-            category_id = form.cleaned_data['category']
-            print((category_id))
-            return self.get_queryset(category_id)
-        else:
-            return render(request, self.template_name, {'form': form})
-    '''
-    def get_queryset(self):
-        category_id = self.kwargs.get('category_id')
-        #products = Product.objects.all()
-        products = Product.objects.filter(category_id=category_id)
-        if not products:
-            return Product.objects.none()
-
-        return products #get_product_from_category(products)
-
-'''
-
-class SearchProductsView(FormView):
+class ProductsSearchView(FormView):
 
 
     form_class = ProductsSearchForm
     template_name = 'products_search.html'
 
 
-
     def form_valid(self, form):
-
-        if not form.is_valid():
-             return redirect('products:products_detail')
-        category_id = form.cleaned_data['category']
+        category_id = form.cleaned_data["category"]
+        #category_id = 2
+        #cleaned_data = super().form_valid(form)
+       # if not form.is_valid():
+        #     return redirect('products:products_detail')
+        #category_id = form.choice_category()
+        print(category_id)
         return super().form_valid(form)
+
+
+class ProductCategoryListView(ListView):
+
+    model = Product
+    template_name = 'products/products_category.html'
+    context_object_name = 'products'
+
+
+
+    def get(self, request, *args, **kwargs):
+        form = ProductsSearchForm(request.GET)
+        if form.is_valid():
+            category_id = int(form.cleaned_data['category'])
+            print((category_id))
+
+
+            return self.get_queryset(category_id)
+        else:
+            return render(request, self.template_name, {'form': form})
+
+
+    def get_queryset(self, category_id):
+
+
+        #category_id = self.kwargs.get('category')#category_id
+        print(f'gegqgg {category_id}')
+        if category_id:
+            return get_product_from_category(category_id=category_id)
+        else:
+            return get_product_from_category(category_id=category_id)#Product.objects.none()
+
+    #def get(self, request, *args, **kwargs):
+     #   form = ProductsSearchForm()
+      #  return render(request, self.template_name, {'form': form, 'products': self.get_queryset()})
+
+
+'''  
+    def post(self, request, *args, **kwargs):
+        form = ProductsSearchForm(request.POST)
+        print(cleaned_data)
+        #if form.is_valid():
+        category_id = form.cleaned_data['category']
+        print((category_id))
+        return self.get_queryset(category_id)
+        #else:
+        return  self.get_queryset(category_id)#render(request, self.template_name, {'form': form})
+
+'''
+
+
+
+
+
 
 
 

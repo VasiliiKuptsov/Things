@@ -57,7 +57,7 @@ class ProductModeratorForm(StyleFormMixin, forms.ModelForm):
             raise forms.ValidationError('Отрицательная цена недопустима!')
         return price
 
-class ProductsSearchForm(forms.Form):
+class ProductsSearchForm(forms.Form):#ModelForm):
     category = forms.ChoiceField()
 
     class Meta:
@@ -67,3 +67,5 @@ class ProductsSearchForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['category'].choices = [(category.id, category.name) for category in Category.objects.all()]
+
+

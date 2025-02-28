@@ -8,12 +8,13 @@
                 <h4 class="my-0 font-weight-normal">Поиск продуктов по категориям</h4>
             </div>
             <div class="card-body">
-                <form method="post" action="{% url 'products:products_category'  %}" enctype="multipart/form-data" class="form-floating">
-                <p><input name="category"></p>
+                <form method="get" action="{% url 'products:products_category'  %}" enctype="multipart/form-data" class="form-floating">
+
                     {% csrf_token %}
                     {{ form.as_p }}
+                     <h4 class="fw-light"> категории {{'2'}} {{category}} .</h4>
                     <button type="submit" class="btn btn-primary">Отправить</button>
-                    <h4 class="fw-light"> категории {{category}} .</h4>
+
                 </form>
             </div>
         </div>
