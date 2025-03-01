@@ -12,6 +12,10 @@ from django.forms import forms
 from products.services import get_product_from_category
 from django.views import View
 from django import forms
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
+
+
 
 class ProductForm(StyleFormMixin, forms.ModelForm):
     class Meta:
@@ -25,11 +29,9 @@ class ProductListView(ListView):
     model = Product
 
     def get_queryset(self):
-        queryset = cache.get('products_queryset')
-        if not queryset:
-            queryset = super().get_queryset()
-            cache.set('authors_queryset', queryset, 60 * 15)  # Кешируем данные на 15 минут
-        return queryset
+        return get_products_from_cache()
+
+
 
 class ProductDetailView(DetailView):
 
