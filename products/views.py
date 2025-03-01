@@ -1,5 +1,6 @@
 from django import forms
-from django.shortcuts import render, get_object_or_404
+from django.core.cache import cache
+from django.shortcuts import render, get_object_or_404, redirect
 from products.models import Product
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView, FormView
@@ -23,6 +24,12 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
 class ProductListView(ListView):
     model = Product
 
+    def get_queryset(self):
+        queryset = cache.get('products_queryset')
+        if not queryset:
+            queryset = super().get_queryset()
+            cache.set('authors_queryset', queryset, 60 * 15)  # Кешируем данные на 15 минут
+        return queryset
 
 class ProductDetailView(DetailView):
 
@@ -70,7 +77,7 @@ class  ProductUpdateView(LoginRequiredMixin, UpdateView):
             return ProductForm
         if user.has_perm('products.can_publication_product'):
             return ProductModeratorForm
-        return ProductModeratorForm#PermissionDenied
+        return ProductModeratorForm
 
 
 
@@ -88,14 +95,9 @@ class ProductsSearchView(FormView):
 
 
     def form_valid(self, form):
-        category_id = form.cleaned_data["category"]
-        #category_id = 2
-        #cleaned_data = super().form_valid(form)
-       # if not form.is_valid():
-        #     return redirect('products:products_detail')
-        #category_id = form.choice_category()
-        print(category_id)
-        return super().form_valid(form)
+        category_id = int(form.cleaned_data["category"])
+
+        return redirect('products:products_category', category_id=category_id)#super().form_valid(form)
 
 
 class ProductCategoryListView(ListView):
@@ -106,45 +108,28 @@ class ProductCategoryListView(ListView):
 
 
 
-    def get(self, request, *args, **kwargs):
-        form = ProductsSearchForm(request.GET)
-        if form.is_valid():
-            category_id = int(form.cleaned_data['category'])
-            print((category_id))
+
+    def get_queryset(self):
 
 
-            return self.get_queryset(category_id)
-        else:
-            return render(request, self.template_name, {'form': form})
-
-
-    def get_queryset(self, category_id):
-
-
-        #category_id = self.kwargs.get('category')#category_id
+        category_id = self.request.GET.get('category')  # Получите category из GET-запроса
         print(f'gegqgg {category_id}')
+
         if category_id:
-            return get_product_from_category(category_id=category_id)
+            return get_product_from_category(category_id)
         else:
-            return get_product_from_category(category_id=category_id)#Product.objects.none()
-
-    #def get(self, request, *args, **kwargs):
-     #   form = ProductsSearchForm()
-      #  return render(request, self.template_name, {'form': form, 'products': self.get_queryset()})
+            return Product.objects.none()
 
 
-'''  
-    def post(self, request, *args, **kwargs):
-        form = ProductsSearchForm(request.POST)
-        print(cleaned_data)
-        #if form.is_valid():
-        category_id = form.cleaned_data['category']
-        print((category_id))
-        return self.get_queryset(category_id)
-        #else:
-        return  self.get_queryset(category_id)#render(request, self.template_name, {'form': form})
 
-'''
+
+    def get(self, request, *args, **kwargs):
+        form = ProductsSearchForm()  # Создаем форму для поиска
+        products = self.get_queryset()  # Получаем список продуктов по категории
+        return render(request, self.template_name, {'form': form, 'products': products})
+
+
+
 
 
 
