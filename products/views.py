@@ -9,7 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import ProductModeratorForm
 from django.core.exceptions import PermissionDenied
 from django.forms import forms
-from products.services import get_product_from_category
+from products.services import get_product_from_category, get_products_from_cache
 from django.views import View
 from django import forms
 from django.views.decorators.cache import cache_page
